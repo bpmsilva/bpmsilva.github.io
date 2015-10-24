@@ -1,0 +1,24 @@
+* {
+	/* border: 1px dashed blue; */
+	padding: 0px;
+	margin: 0px 0px 0px 0px;
+}
+
+ul {
+	text-align: center;
+}
+
+li {
+	display: inline-block;
+	border: 1px solid white;
+	border-radius: 3px;
+	padding: 0.5em 1em 0.5em 1em;
+}
+
+a {
+	text-decoration: none;
+}
+a:visited {
+	color: inherit;
+}
+tab { padding-left: 4em; }
