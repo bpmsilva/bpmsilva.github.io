@@ -18,7 +18,9 @@ li {
 a {
 	text-decoration: none;
 }
+
 a:visited {
 	color: inherit;
 }
+
 tab { padding-left: 4em; }
