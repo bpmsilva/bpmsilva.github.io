@@ -4,13 +4,33 @@
 	<head>
 		<meta charset="uft-8">
 		<title>Week Two - Multimedia</title>
+		<script>
+		function myFunction() {
+			var teste = document.getElementById("id2");
+			teste.style.color = 'blue';
+		}
+		</script>
 	</head>
 	<body style="text-align: center;">
-		<h1>Week Two of the Html Course</h1>
-		<audio src="horse.ogg" controls>
-			Your browser does not support the audio element.
-			Download the audio/video in <a href=”https://dl.dropboxusercontent.com/u/1631516/horse.ogg”>OGG</a>
-			or <a href=”https://dl.dropboxusercontent.com/u/1631516/horse.mp3”>MP3</a> format.
-		</audio>
+		<h1 id="id1"  onclick="document.getElementById('id1').style.color = 'red'">Week Two of the Html Course</h1>
+		<h2 id="id2" onclick="myFunction2()">Week Two of the Html Course</h2>
+		<section>
+			<h2>Audio</h2>
+			<audio controls>
+				<source src="https://dl.dropboxusercontent.com/u/1631516/horse.ogg" type="audio/ogg" />
+				<source src="https://dl.dropboxusercontent.com/u/1631516/horse.mp3" type="audio/mp3" />
+				Your browser does not support the audio element.
+				Download the audio/video in <a href=”https://dl.dropboxusercontent.com/u/1631516/horse.ogg”>OGG</a>
+				or <a href=”https://dl.dropboxusercontent.com/u/1631516/horse.mp3”>MP3</a> format.
+			</audio>
+		</section>
+		<section>
+			<h2>Video</h2>
+			<video controls>
+				<source src="http://html5doctor.com/demos/video-canvas-magic/video.webm" type="video/webm"> 
+				<source src="http://html5doctor.com/demos/video-canvas-magic/video.ogg" type="video/ogg">
+				<source src="http://html5doctor.com/demos/video-canvas-magic/video.mp4" type="video/mp4">
+			</video>
+		</section>
 	</body>
 </html>
