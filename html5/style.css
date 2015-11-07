@@ -6,7 +6,13 @@ aside {
 	position: absolute;
 	top: 0;
 	right: 0;
-	margin: 1em;
+	margin: 1em 1em 1em 1em;
+	padding: 1em;
+	border: 1px solid black;
+}
+
+aside h3 {
+	margin: 0px;
 }
 
 nav li {
