@@ -1,0 +1,47 @@
+<!doctype html>
+
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>My Custom Player</title>
+		<style>
+			body {
+				text-align: center;
+			}
+		</style>
+	</head>
+	<body>
+		<h1 id="heading" onclick="color()">My custom player</h1>
+		<video id="video">
+			<source src="http://html5doctor.com/demos/video-canvas-magic/video.webm" type="video/webm"> 
+			<source src="http://html5doctor.com/demos/video-canvas-magic/video.ogg" type="video/ogg"> 
+			<source src="http://html5doctor.com/demos/video-canvas-magic/video.mp4" type="video/mp4">
+		</video>
+		<div>
+			<button onclick="play()">Play</button>
+			<button onclick="pause()">Pause</button>
+			<button onclick="back()">Back to Beginning</button>
+		</div>
+		<script>
+			var heading = document.getElementById('heading');
+			var video = document.getElementById('video');
+
+			function color() {
+				heading.style.color = 'red';
+			}
+
+			function play() {
+				video.play();
+			}
+
+			function pause() {
+				video.pause();
+			}
+
+			function back() {
+				video.currentTime = 0;
+				pause();
+			}
+		</script>
+	</body>
+</html>
