@@ -8,13 +8,33 @@
 			body {
 				text-align: center;
 			}
+			#myCanvas {
+				border: 1px solid black;
+			}
 		</style>
 	</head>
 	<body>
 		<h1>Week Three HTML5 Edx Course</h1>
 		<h2>Canvas Element</h2>
+		<canvas id="myCanvas" width="600px" height="400px">
+			Canvas element is not supported by your browser.
+		</canvas>
 	</body>
 	<script>
 		console.log("Java script is running");
+
+		var canvas;
+		var context;
+
+		window.onload = init();
+
+		function init() {
+			canvas = document.getElementById("myCanvas");
+			context = canvas.getContext("2d");
+
+			context.fillRect(10, 10, 40, 50);
+			context.fillStyle = "red";
+			context.fillRect(60, 10, 30, 30);
+		}
 	</script>
 </html>
