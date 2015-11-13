@@ -12,6 +12,65 @@
 				border: 1px solid black;
 			}
 		</style>
+		<script>
+			console.log("Java script is running");
+
+			var canvas;
+			var context;
+
+			window.onload = init; // it does not need the () of functions
+
+			function init() {
+				
+				canvas = document.getElementById("myCanvas");
+				context = canvas.getContext("2d");
+
+				context.save();
+				context.translate(100, 100);
+				context.rotate(-5*Math.PI/180);
+				context.scale(1, 1.2);
+
+				context.fillStyle = "grey";
+				context.fillRect(10, 10, 40, 50);
+				context.fillStyle = "red";
+				context.fillRect(60, 10, 30, 30);
+
+				context.strokeStyle = 'green';
+				context.lineWidth = 3;
+				context.strokeRect(10, 10, 40, 50);
+
+				context.clearRect(20, 20, 20, 30);
+
+				context.restore();
+
+				writeOnTheCenter("Hallo, Welt! Ich bin Bernardo");
+
+				var imgObj = new Image();
+				context.save();
+				imgObj.src = "http://www.w3.org/html/logo/downloads/HTML5_Logo_512.png";
+
+				var imgWidth;
+				var imgHeight;
+				imgObj.onload = function() {
+					imgHeight = this.height;
+					imgWidth = this.width;
+					context.drawImage(imgObj, 300, 150, imgWidth/3, imgHeight/3);
+				};
+				context.restore();
+			}
+
+			function writeOnTheCenter(text) {
+				context.save();
+				var x = canvas.width;
+				context.textBaseline = "top";
+				context.font = "italic 20pt Calibri";
+				var textMetrics = context.measureText(text);
+				var width = textMetrics.width;
+				
+				context.fillText(text, (x-width)/2, 0);
+				context.restore();
+			}
+		</script>
 	</head>
 	<body>
 		<h1>Week Three HTML5 Edx Course</h1>
@@ -20,21 +79,4 @@
 			Canvas element is not supported by your browser.
 		</canvas>
 	</body>
-	<script>
-		console.log("Java script is running");
-
-		var canvas;
-		var context;
-
-		window.onload = init();
-
-		function init() {
-			canvas = document.getElementById("myCanvas");
-			context = canvas.getContext("2d");
-
-			context.fillRect(10, 10, 40, 50);
-			context.fillStyle = "red";
-			context.fillRect(60, 10, 30, 30);
-		}
-	</script>
 </html>
