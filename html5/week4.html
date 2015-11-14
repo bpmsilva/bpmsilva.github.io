@@ -16,6 +16,7 @@
 		var canvas, ctx;
       	var rectWidth = 120;
 		var rectHeight = 80;
+        var trans = 0.6;
       
         // First Rect
 		var rectX = 10;
@@ -52,7 +53,7 @@
 
         function drawAndMoveRectOne() {
             ctx.save();
-			ctx.fillStyle = 'rgba(0, 0, 0, 0.6)';
+			ctx.fillStyle = 'rgba(0, 0, 0,' + trans + ')';
 			ctx.fillRect(rectX, rectY, rectWidth, rectHeight);
             ctx.restore();
 			rectX += xSpeed;
@@ -62,7 +63,7 @@
 
       	function drawAndMoveRectTwo() {
             ctx.save();
-			ctx.fillStyle = 'rgba(0, 0, 0, 0.6)';
+			ctx.fillStyle = 'rgba(0, 0, 0,' + trans + ')';
 			ctx.fillRect(rectX2, rectY2, rectWidth, rectHeight);
 			rectX2 += xSpeed2;
 			rectY2 += ySpeed2;
@@ -111,11 +112,19 @@
 			}
 		}
 
+        function changeTrans(event) {
+            trans = parseInt(event.target.value)/100;
+            document.getElementById('transValue').innerHTML = parseInt(trans*100);
+        }
 	</script>
 </head>
 <body onload="init()">
 	<h1>Week Four</h1>
 	<canvas id="myCanvas" width="600" height="400">Your browser does not support the canvas element</canvas>
+	<br/>
+    <label for="trans">Transparency: </label><output id="transValue">100</output>%
+    <br/>
+    <input id="trans" type="range" min=0 max=100 oninput="changeTrans(event)">
 	<br/>
 	<a href="week4p2">Part II</a>
 </body>
