@@ -14,35 +14,75 @@
 	</style>
 	<script>
 		var canvas, ctx;
+      	var rectWidth = 120;
+		var rectHeight = 80;
+      
+        // First Rect
 		var rectX = 10;
 		var rectY = 10;
 		var xSpeed = 0.1 + Math.random()*2;
 		var ySpeed = 0.1 + Math.random()*2;
-		var rectWidth = 120;
-		var rectHeight = 80;
+      
+        // Second Rect
+        var rectX2;
+		var rectY2;
+		var xSpeed2 = -(0.1 + Math.random()*2);
+		var ySpeed2 = -(0.1 + Math.random()*2);
+
 
 		function init() {
 			canvas = document.getElementById("myCanvas");
 			ctx = canvas.getContext("2d");
-			requestAnimationFrame(animate);
+            
+            // Position
+            rectX2 = canvas.width - rectWidth - 10;
+            rectY2 = canvas.height - rectHeight - 10;
+          
+			requestAnimationFrame(animateRect);
 		}
 
-		function animate() {
+		function animateRect() {
 			ctx.clearRect(0, 0, canvas.width, canvas.height);
-			ctx.fillStyle = '#000000';
+            drawAndMoveRectOne();
+            drawAndMoveRectTwo();
+			requestAnimationFrame(animateRect);
+		}
+
+        function drawAndMoveRectOne() {
+            ctx.save();
+			ctx.fillStyle = 'rgba(0, 0, 0, 0.6)';
 			ctx.fillRect(rectX, rectY, rectWidth, rectHeight);
+            ctx.restore();
 			rectX += xSpeed;
 			rectY += ySpeed;
-			detectCollision();
-			requestAnimationFrame(animate);
+			detectCollisionOne();
+        }
+
+      	function drawAndMoveRectTwo() {
+            ctx.save();
+			ctx.fillStyle = 'rgba(0, 0, 0, 0.6)';
+			ctx.fillRect(rectX2, rectY2, rectWidth, rectHeight);
+			rectX2 += xSpeed2;
+			rectY2 += ySpeed2;
+			detectCollisionTwo();
+            ctx.restore();
 		}
 
-		function detectCollision() {
-			if ((rectX  + rectWidth >= canvas.width) || (rectX <= 0)) {
+		function detectCollisionOne() {
+			if ((rectX + rectWidth >= canvas.width) || (rectX <= 0)) {
 				xSpeed = -xSpeed;
 			}
 			if ((rectY + rectHeight >= canvas.height) || (rectY <= 0)) {
 				ySpeed = -ySpeed;
+			}
+		}
+      
+        function detectCollisionTwo() {
+			if ((rectX2  + rectWidth >= canvas.width) || (rectX2 <= 0)) {
+				xSpeed2 = -xSpeed2;
+			}
+			if ((rectY2 + rectHeight >= canvas.height) || (rectY2 <= 0)) {
+				ySpeed2 = -ySpeed2;
 			}
 		}
 
