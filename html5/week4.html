@@ -75,8 +75,10 @@
         	distX2 = Math.abs(rectX2 + rectWidth - rectX);
         	distY = Math.abs(rectY - rectY2);
             if (((distX1 <= 2) || (distX2 <= 2)) && (distY <= rectHeight)){
-            	xSpeed = -xSpeed;
-            	xSpeed2 = -xSpeed2;
+        		var tmp1;
+        		tmp = xSpeed;
+        		xSpeed = xSpeed2;
+        		xSpeed2 = tmp;
             }
         }
 
@@ -85,8 +87,9 @@
         	distY2 = Math.abs(rectY2 + rectHeight - rectY);
         	distX = Math.abs(rectX - rectX2);
             if (((distY1 <= 2) || (distY2 <= 2)) && (distX <= rectWidth)){
-            	ySpeed = -ySpeed;
-            	ySpeed2 = -ySpeed2;
+        		tmp2 = ySpeed;
+        		ySpeed = ySpeed2;
+        		ySpeed2 = tmp2;
             }
         }
 
@@ -113,6 +116,7 @@
 <body onload="init()">
 	<h1>Week Four</h1>
 	<canvas id="myCanvas" width="600" height="400">Your browser does not support the canvas element</canvas>
+	<br/>
 	<a href="week4p2">Part II</a>
 </body>
 </html>
