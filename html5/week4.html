@@ -20,14 +20,14 @@
         // First Rect
 		var rectX = 10;
 		var rectY = 10;
-		var xSpeed = 0.1 + Math.random()*2;
-		var ySpeed = 0.1 + Math.random()*2;
+		var xSpeed = (0.1 + Math.random())*3;
+		var ySpeed = (0.1 + Math.random())*3;
       
         // Second Rect
         var rectX2;
 		var rectY2;
-		var xSpeed2 = -(0.1 + Math.random()*2);
-		var ySpeed2 = -(0.1 + Math.random()*2);
+		var xSpeed2 = -(0.1 + Math.random())*3;
+		var ySpeed2 = -(0.1 + Math.random())*3;
 
 
 		function init() {
@@ -45,6 +45,8 @@
 			ctx.clearRect(0, 0, canvas.width, canvas.height);
             drawAndMoveRectOne();
             drawAndMoveRectTwo();
+            detectSimulCollisionsX();
+            detectSimulCollisionsY();
 			requestAnimationFrame(animateRect);
 		}
 
@@ -67,6 +69,26 @@
 			detectCollisionTwo();
             ctx.restore();
 		}
+      
+        function detectSimulCollisionsX() {
+        	distX1 = Math.abs(rectX + rectWidth - rectX2);
+        	distX2 = Math.abs(rectX2 + rectWidth - rectX);
+        	distY = Math.abs(rectY - rectY2);
+            if (((distX1 <= 2) || (distX2 <= 2)) && (distY <= rectHeight)){
+            	xSpeed = -xSpeed;
+            	xSpeed2 = -xSpeed2;
+            }
+        }
+
+        function detectSimulCollisionsY() {
+        	distY1 = Math.abs(rectY + rectHeight - rectY2);
+        	distY2 = Math.abs(rectY2 + rectHeight - rectY);
+        	distX = Math.abs(rectX - rectX2);
+            if (((distY1 <= 2) || (distY2 <= 2)) && (distX <= rectWidth)){
+            	ySpeed = -ySpeed;
+            	ySpeed2 = -ySpeed2;
+            }
+        }
 
 		function detectCollisionOne() {
 			if ((rectX + rectWidth >= canvas.width) || (rectX <= 0)) {
@@ -91,5 +113,6 @@
 <body onload="init()">
 	<h1>Week Four</h1>
 	<canvas id="myCanvas" width="600" height="400">Your browser does not support the canvas element</canvas>
+	<a href="week4p2">Part II</a>
 </body>
 </html>
