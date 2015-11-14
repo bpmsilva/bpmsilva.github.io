@@ -16,6 +16,8 @@
 		// global variables
 		var canvas, ctx;
         var rectX = 10, rectY = 10;
+        var incrementX = 0, incrementY = 0;
+   		var initX = 0, initY = 0;
 
 		function init() {
 			// Get context;
@@ -24,29 +26,44 @@
 
             // Add listener
             window.addEventListener('keydown', handleKeyDown, false);
-          
-            // Draw first frame
-            drawRect();
+            window.addEventListener('keyup', handleKeyUp, false);
+            
+            // Call the loop;
+            requestId = requestAnimationFrame(drawRect);
 		}
       
         function handleKeyDown(evt) {
             if (evt.keyCode === 37) {
-                rectX -= 2;
+                incrementX = -2;
             } else if (evt.keyCode === 38) {
-                rectY -= 2;
+                incrementY = -2;
             } else if (evt.keyCode === 39) {
-                rectX += 2;
+                incrementX = 2;
             } else if (evt.keyCode === 40) {
-                rectY += 2;
+                incrementY = 2;
             }
-            drawRect();
+        }
+      
+        function handleKeyUp(evt) {
+            if ((evt.keyCode === 37) || (evt.keyCode === 39)) {
+                incrementX = 0;
+            } else if ((evt.keyCode === 38) || (evt.keyCode === 40)) {
+                incrementY = 0;
+            }
         }
       
         function drawRect() {
+            
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             ctx.save();
-            ctx.fillRect(rectX, rectY, 30, 30);
+            ctx.translate(rectX, rectY);
+            ctx.fillRect(initX, initY, 30, 30);
             ctx.restore();
+          
+            rectX += incrementX;
+            rectY += incrementY;
+          
+            requestId = requestAnimationFrame(drawRect);
         }
 	</script>
 </head>
