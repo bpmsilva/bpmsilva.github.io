@@ -1,0 +1,106 @@
+<!doctype html>
+
+<html>
+<head>
+	<meta charset="utf-8">
+	<title> Photo App! </title>
+	<style>
+		body {
+			text-align: center;
+		}
+		#myCanvas {
+			border: 1px solid black;
+		}
+	</style>
+</head>
+<body>
+	<h1> My First Photo App! </h1>
+	
+	<canvas id="myCanvas" width="400px" height="400px"> Your browser does not support the canvas element. </canvas>
+	<br/>
+
+	<label for="photoFile">Choose a photo</label>
+	<input id="photoFile" type="file" onchange="insertPhoto(this.files)"/>
+	<br/>
+
+	<label for="flagOptions">Choose a country</label>
+	<select id="flagOptions" onchange="selectedCountry()">
+		<option value="de">Germany</option>
+		<option value="fr">France</option>
+	</select>
+	<br/>
+
+	Selected country: <span id="country">...</span>
+
+	<div id="thumbnails"></div>
+	<script>
+		var container = document.getElementById("thumbnails");
+
+		var canvas = document.getElementById('myCanvas'),
+		ctx = canvas.getContext('2d');
+
+		var permWidth = canvas.width, permHeight = canvas.height;
+
+		function insertPhoto(files) {
+			var reader = new FileReader();
+
+			reader.onload = function(e) {
+
+				// add image to the canvas
+				var canvasImg = new Image();
+				canvasImg.src = e.target.result;
+
+				// Compare width and heigth;
+				var imgWidth, imgHeight;
+
+				if (canvasImg.width >= canvasImg.height) {
+					imgWidth = canvas.width;
+					imgHeight = canvasImg.height / canvasImg.width * canvas.width; 
+				} else {
+					imgHeight = canvas.height;
+					imgWidth = canvasImg.width / canvasImg.height * canvas.height; 
+				}
+
+				canvasImg.onload = function() {
+
+					canvas.width = imgWidth;
+					canvas.height = imgHeight;
+
+					ctx.drawImage(canvasImg, 0, 0, imgWidth, imgHeight);
+
+					// france flag
+					var option = document.getElementById('flagOptions');
+					var countryCode = option.options[option.selectedIndex].value;
+					if (countryCode == 'fr') {
+						ctx.save();
+						ctx.fillStyle = 'rgba(0, 0, 255, 0.3)';
+						ctx.fillRect(0, 0, canvas.width/3, canvas.height);
+						ctx.fillStyle = 'rgba(255, 255, 255, 0.3)';
+						ctx.fillRect(canvas.width/3, 0, canvas.width/3, canvas.height);
+						ctx.fillStyle = 'rgba(255, 0, 0, 0.3)';
+						ctx.fillRect(2*canvas.width/3, 0, canvas.width/3, canvas.height);
+						ctx.restore();
+					} else if (countryCode == 'de') {
+						ctx.save();
+						ctx.fillStyle = 'rgba(0, 0, 0, 0.3)';
+						ctx.fillRect(0, 0, canvas.width, canvas.height/3);
+						ctx.fillStyle = 'rgba(255, 0, 0, 0.3)';
+						ctx.fillRect(0, canvas.height/3, canvas.width, canvas.height/3);
+						ctx.fillStyle = 'rgba(255,255, 0, 0.3)';
+						ctx.fillRect(0, 2*canvas.height/3, canvas.width, canvas.height/3);
+						ctx.restore();
+					}
+				}
+			}
+
+			reader.readAsDataURL(files[0]);
+		}
+
+		function selectedCountry() {
+			// check the country
+			var c = document.getElementById('flagOptions');
+			document.getElementById('country').innerHTML = c.options[c.selectedIndex].value;
+		}
+	</script>
+</body>
+</html>
