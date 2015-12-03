@@ -24,7 +24,9 @@
 	<br/>
 
 	<label for="flagOptions">Choose a country</label>
-	<select id="flagOptions" onchange="selectedCountry()">
+	<select id="flagOptions" onchange="insertPhoto(null)">
+		<option value="br">Brazil</option>
+		<option value="at">Austria</option>
 		<option value="de">Germany</option>
 		<option value="fr">France</option>
 	</select>
@@ -41,7 +43,17 @@
 
 		var permWidth = canvas.width, permHeight = canvas.height;
 
+		var myFiles;
+
 		function insertPhoto(files) {
+
+			if (files != null) {
+				myFiles = files[0];
+			}
+			// restore the canvas original size:
+			canvas.width = permWidth;
+			canvas.height = permHeight;
+
 			var reader = new FileReader();
 
 			reader.onload = function(e) {
@@ -61,6 +73,11 @@
 					imgWidth = canvasImg.width / canvasImg.height * canvas.height; 
 				}
 
+				// show choosed flag
+				var option = document.getElementById('flagOptions');
+				var countryCode = option.options[option.selectedIndex].value;
+				document.getElementById('country').innerHTML = countryCode;
+
 				canvasImg.onload = function() {
 
 					canvas.width = imgWidth;
@@ -68,39 +85,48 @@
 
 					ctx.drawImage(canvasImg, 0, 0, imgWidth, imgHeight);
 
-					// france flag
-					var option = document.getElementById('flagOptions');
-					var countryCode = option.options[option.selectedIndex].value;
+
 					if (countryCode == 'fr') {
-						ctx.save();
-						ctx.fillStyle = 'rgba(0, 0, 255, 0.3)';
+						ctx.fillStyle = 'rgba(0, 85, 164, 0.5)';
 						ctx.fillRect(0, 0, canvas.width/3, canvas.height);
-						ctx.fillStyle = 'rgba(255, 255, 255, 0.3)';
+						ctx.fillStyle = 'rgba(255, 255, 255, 0.5)';
 						ctx.fillRect(canvas.width/3, 0, canvas.width/3, canvas.height);
-						ctx.fillStyle = 'rgba(255, 0, 0, 0.3)';
+						ctx.fillStyle = 'rgba(239, 65, 53, 0.5)';
 						ctx.fillRect(2*canvas.width/3, 0, canvas.width/3, canvas.height);
-						ctx.restore();
 					} else if (countryCode == 'de') {
-						ctx.save();
-						ctx.fillStyle = 'rgba(0, 0, 0, 0.3)';
+						ctx.fillStyle = 'rgba(0, 0, 0, 0.5)';
 						ctx.fillRect(0, 0, canvas.width, canvas.height/3);
-						ctx.fillStyle = 'rgba(255, 0, 0, 0.3)';
+						ctx.fillStyle = 'rgba(208, 0, 0, 0.5)';
 						ctx.fillRect(0, canvas.height/3, canvas.width, canvas.height/3);
-						ctx.fillStyle = 'rgba(255,255, 0, 0.3)';
+						ctx.fillStyle = 'rgba(255, 206, 0, 0.5)';
 						ctx.fillRect(0, 2*canvas.height/3, canvas.width, canvas.height/3);
-						ctx.restore();
+					} else if (countryCode == 'at') {
+						ctx.fillStyle = 'rgba(237, 41, 57, 0.5)';
+						ctx.fillRect(0, 0, canvas.width, canvas.height/3);
+						ctx.fillStyle = 'rgba(255, 255, 255, 0.5)';
+						ctx.fillRect(0, canvas.height/3, canvas.width, canvas.height/3);
+						ctx.fillStyle = 'rgba(237, 41, 57, 0.5)';
+						ctx.fillRect(0, 2*canvas.height/3, canvas.width, canvas.height/3);
+					} else if (countryCode == 'br') {
+						ctx.fillStyle = 'rgba(0, 146, 62, 0.5)';
+						ctx.fillRect(0, 0, canvas.width/3, canvas.height);
+						ctx.fillStyle = 'rgba(248, 193, 0, 0.5)';
+						ctx.fillRect(canvas.width/3, 0, canvas.width/3, canvas.height);
+						ctx.fillStyle = 'rgba(40, 22, 111, 0.5)';
+						ctx.fillRect(2*canvas.width/3, 0, canvas.width/3, canvas.height);
 					}
 				}
 			}
 
-			reader.readAsDataURL(files[0]);
+			reader.readAsDataURL(myFiles);
 		}
 
+		/*
 		function selectedCountry() {
 			// check the country
 			var c = document.getElementById('flagOptions');
 			document.getElementById('country').innerHTML = c.options[c.selectedIndex].value;
-		}
+		} */
 	</script>
 </body>
 </html>
